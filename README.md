@@ -1,2 +1,2 @@
 # midaxo
-Analytics projects w/ midaxo
+Data Analytics projects w/ Midaxo
