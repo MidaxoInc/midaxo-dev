@@ -33,7 +33,4 @@ models:
       - "grant select on {{this}} to SYSADMIN"
   basetables:
     base:
-      materialized: table
-
-  vars:
-    "hsdeal" : "raw.hubspot.deal"
+      materialized: view
