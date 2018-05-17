@@ -1,2 +1,20 @@
-select *
-from {{var("hsdeal")}}
+select
+  d.deal_id,
+  c.company_id,
+  f.property_name as company_name,
+  d.deal_pipeline_stage_id,
+  d.deal_pipeline_id,
+  d.owner_id,
+  d.property_dealname as deal_name,
+  d.property_closedate as closedate,
+  d.property_createdate as createdate,
+  d.property_amount as deal_amount,
+  d.property_attributed_to as deal_attributed_to
+from
+  raw.hubspot.deal d
+  left join
+    raw.hubspot.deal_company c
+    on c.deal_id = d.deal_id
+  left join
+    raw.hubspot.company f
+    on f.id = c.company_id
