@@ -27,10 +27,6 @@ quoting:
   schema: false
 
 models:
-  enabled: true
   materialized: view
   post-hook:
       - "grant select on {{this}} to SYSADMIN"
-  basetables:
-    base:
-      materialized: table
