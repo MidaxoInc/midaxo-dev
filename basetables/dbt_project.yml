@@ -24,3 +24,5 @@ models:
   materialized: view
   post-hook:
       - "grant select on {{this}} to SYSADMIN"
+  function:
+    enabled: false

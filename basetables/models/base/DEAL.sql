@@ -12,9 +12,10 @@ select
   d.property_attributed_to as deal_attributed_to
 from
   raw.hubspot.deal d
-  left join
-    raw.hubspot.deal_company c
-    on c.deal_id = d.deal_id
-  left join
-    raw.hubspot.company f
-    on f.id = c.company_id
+left join
+  raw.hubspot.deal_company c
+  on c.deal_id = d.deal_id
+left join
+  raw.hubspot.company f
+  on f.id = c.company_id
+order by closedate desc
