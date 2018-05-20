@@ -16,21 +16,19 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
 
-# You can define configurations for models in the `source-paths` directory here.
-# Using these configurations, you can enable or disable models, change how they
-# are materialized, and more!
-
-# In this example config, we tell dbt to build all models in the example/ directory
-# as views (the default). Try changing `view` to `table` below, then re-running dbt
 quoting:
   identifier: false
   schema: false
 
 models:
-  enabled: true
   materialized: view
   post-hook:
       - "grant select on {{this}} to SYSADMIN"
+<<<<<<< HEAD
   basetables:
     base:
       materialized: view
+=======
+  function:
+    enabled: false
+>>>>>>> cf2d6a5f9d5c3c8f6d1f8b24516ba5d87c2c1e64
