@@ -1,6 +1,3 @@
-
-lines (21 sloc)  523 Bytes
-
 name: 'basetables'
 version: '0.5'
 
@@ -28,3 +25,12 @@ models:
       - "grant select on {{this}} to SYSADMIN"
   function:
     enabled: false
+
+archive:
+    - source_schema: DEV                     # schema to look for tables in (declared below)
+      target_schema: DEV                     # where to archive the data to
+      tables:                                # list of tables to archive
+        - source_table: DEAL                # table to archive (production_data.users)
+          target_table: DEAL_ARCHIVE       # table to insert archived data into (dbt_archive.users_archived)
+          updated_at: 'changedate::timestamp_ntz'            # used to determine when data has changed
+          unique_key: deal_id                     # used to generate archival query
