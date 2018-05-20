@@ -1,4 +1,6 @@
 
+lines (21 sloc)  523 Bytes
+
 name: 'basetables'
 version: '0.5'
 
@@ -24,11 +26,5 @@ models:
   materialized: view
   post-hook:
       - "grant select on {{this}} to SYSADMIN"
-<<<<<<< HEAD
-  basetables:
-    base:
-      materialized: view
-=======
   function:
     enabled: false
->>>>>>> cf2d6a5f9d5c3c8f6d1f8b24516ba5d87c2c1e64
