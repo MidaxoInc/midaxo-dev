@@ -9,6 +9,7 @@ select
   d.property_closedate as closedate,
   d.property_createdate as createdate,
   d.property_hs_lastmodifieddate as changedate,
+  p.label as dealstage,
   d.property_amount as deal_amount,
   d.property_attributed_to as deal_attributed_to
 from
@@ -19,4 +20,7 @@ left join
 left join
   raw.hubspot.company f
   on f.id = c.company_id
+left join
+  raw.hubspot.deal_pipeline_stage p
+  on p.stage_id = d.deal_pipeline_stage_id
 order by closedate desc
