@@ -19,12 +19,34 @@ quoting:
   identifier: false
   schema: false
 
+# The configuration structure
+#
+# dbt_project.yml
+# models/
+# ├── base
+# │   └── adwords_ads.sql
+# └── snowplow
+#     ├── base
+#     │   └── snowplow_events.sql
+#     └── snowplow_sessions.sql
+
 models:
   materialized: view
   post-hook:
       - "grant select on {{this}} to SYSADMIN"
-  function:
-    enabled: false
+  basetables:
+    base:
+      enabled: true
+      materialized: view
+    ephemeral:
+      enabled: true
+      materialized: ephemeral
+    function:
+      enabled: false
+      materialized: view
+    history:
+      enabled: false
+      materialized: view
 
 archive:
     - source_schema: DEV                     # schema to look for tables in (declared below)
@@ -32,5 +54,5 @@ archive:
       tables:                                # list of tables to archive
         - source_table: DEAL                # table to archive (production_data.users)
           target_table: DEAL_ARCHIVE       # table to insert archived data into (dbt_archive.users_archived)
-          updated_at: 'changedate::timestamp_ntz'            # used to determine when data has changed
+          updated_at: changedate::timestamp_ntz  # used to determine when data has changed
           unique_key: deal_id                     # used to generate archival query

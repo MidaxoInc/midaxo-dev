@@ -5,11 +5,16 @@
 select
 c.ddate,
 c.week,
+c.month,
 c.quarter,
 c.year,
+c.yearweek,
+c.yearmonth,
 c.deal_id,
-d.deal_pipeline_id,
-d.deal_pipeline_stage_id,
+c.deal_name,
+c.company_name,
+e.pipeline_type,
+e.pipeline_stage,
 d.deal_amount,
 d.createdate,
 d.closedate,
@@ -33,13 +38,10 @@ left join {{ref('DEAL_ARCHIVE_CLEAN')}} d
     and d.validfrom <= c.ddate
     and d.validto >= c.ddate
   )
--- select max entry per day and deal by most recent changedate
---left join {{ref('DEAL_ARCHIVE_CLEAN')}} e
---  on (
---    e.deal_id = c.deal_id
---    and e.validfrom <= c.ddate
---    and e.validto >= c.ddate
---    and e.validfrom > d.validfrom
---  )
--- where e.validfrom is null
+
+--join to add useable pipeline names
+left join {{ref('PIPELINE_PROPERTY')}} e
+  on d.deal_pipeline_stage_id = e.stage_id
+
+where c.ddate <= d.closedate
 order by ddate desc
