@@ -1,4 +1,4 @@
-name: 'midaxo-dev'
+name: 'midaxo.dev'
 version: '0.5'
 
 profile: 'sagar.midaxo'
@@ -34,7 +34,7 @@ models:
   materialized: view
   post-hook:
       - "grant select on {{this}} to SYSADMIN"
-  basetables:
+  midaxo.dev:
     base:
       enabled: true
       materialized: view
