@@ -12,7 +12,13 @@ select
   p.pipeline_type,
   p.pipeline_stage,
   d.property_amount as deal_amount,
-  d.property_attributed_to as deal_attributed_to
+  d.property_attributed_to as deal_attributed_to,
+  d.property_recognized_arr as recognized_arr,
+  d.property_one_time_revenue as one_time_revenue,
+  d.property_deal_contract_verified as finance_verified,
+  d.property_seats_purchased as seats_purchased,
+  d.property_contract_term_months as contract_term,
+  d.property_dealtype as deal_type
 from
   raw.hubspot.deal d
 left join
