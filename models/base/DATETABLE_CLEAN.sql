@@ -7,8 +7,11 @@ select
     else concat(cast(b.year as varchar), right(concat('0', cast(b.week as varchar(2))),2))
     end
   ) as yearweek,
-  concat(cast(b.year as varchar), right(concat('0', cast(b.month as varchar(2))),2)) as yearmonth
-
+  dateadd(day,datediff(week,'0',b.ddate),'0') as weeklabel,
+  concat(cast(b.year as varchar), right(concat('0', cast(b.month as varchar(2))),2)) as yearmonth,
+  concat(cast(b.year as varchar), right(concat('0', cast(b.month as varchar(2))),2)) as yearmonth,
+  concat('WE: ', dateadd(day,'-1',last_day(b.ddate,week))) as weeklabel,
+  concat(b.year,concat('-',monthname(b.ddate))) as monthlabel
 from (
   select
     a.date_day as ddate,
