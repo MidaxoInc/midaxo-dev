@@ -1,5 +1,6 @@
 --WIP, need to write logic to pull in verified ARR from contract else use amount from deal (make sure to pull the verified flag from the contract table)
 select
+c.*,
 a.deal_id,
 a.company_id,
 a.deal_pipeline_stage_id,
@@ -66,4 +67,7 @@ case
 from {{ref('DEAL')}} a
 left join {{ref('CONTRACT')}} b
   on a.deal_id = b.deal_id
+inner join ref{{'DATETABLE_CLEAN'}} c
+  on a.closedate = c.end_date
+
 where a.pipeline_stage = 'Closed Won'
