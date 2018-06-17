@@ -67,7 +67,8 @@ case
 from {{ref('DEAL')}} a
 left join {{ref('CONTRACT')}} b
   on a.deal_id = b.deal_id
-inner join {{ref('DATETABLE_CLEAN')}} c
-  on a.closedate = c.end_date
+
+left join {{ref('DATETABLE_CLEAN')}} c
+  on a.closedate = c.ddate
 
 where a.pipeline_stage = 'Closed Won'
