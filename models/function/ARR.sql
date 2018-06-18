@@ -9,10 +9,15 @@ a.owner_id,
 a.deal_name,
 a.company_name,
 a.closedate,
-a.pipeline_type,
+case (
+  when (a.deal_type = 'New' and is_partner = 'TRUE')
+  then 'Partner New'
+  else a.pipeline_type
+  end) as pipeline_type,
 a.pipeline_stage,
 a.deal_type,
 a.deal_attributed_to,
+a.engagement_partner,
 --logic to pull verified arr info from deal, then contract, then unverified based on 'verified' flag
 case
   when a.finance_verified = 'TRUE'
