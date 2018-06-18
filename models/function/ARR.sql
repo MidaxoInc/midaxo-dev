@@ -69,6 +69,6 @@ left join {{ref('CONTRACT')}} b
   on a.deal_id = b.deal_id
 
 left join {{ref('DATETABLE_CLEAN')}} c
-  on a.closedate = c.ddate
+  on to_date(a.closedate) = c.ddate
 
 where a.pipeline_stage = 'Closed Won'
