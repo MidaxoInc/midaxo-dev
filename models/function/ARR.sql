@@ -9,11 +9,11 @@ a.owner_id,
 a.deal_name,
 a.company_name,
 a.closedate,
-case (
+case
   when (a.deal_type = 'New' and is_partner = 'TRUE')
   then 'Partner New'
   else a.pipeline_type
-  end) as pipeline_type,
+end as pipeline_type,
 a.pipeline_stage,
 a.deal_type,
 a.deal_attributed_to,

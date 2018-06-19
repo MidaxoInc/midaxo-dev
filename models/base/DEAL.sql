@@ -19,7 +19,8 @@ select
   d.property_seats_purchased as seats_purchased,
   d.property_contract_term_months_ as contract_term,
   d.property_dealtype as deal_type,
-  d.property_engagement_partner as engagement_partner
+  d.property_engagement_partner as engagement_partner,
+  d.property_is_partner_retainer as is_partner
 from
   raw.hubspot.deal d
 left join
