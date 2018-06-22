@@ -4,12 +4,8 @@ with
     x.contact_id,
     x.timestamp::timestamp_ntz as eventdate,
     lower(x.title) as form_label,
-    lower(x.page_url) as form_url,
-    y.lead_nurturing_campaign_id as campaign_id
+    lower(x.page_url) as form_url
   from RAW.HUBSPOT.CONTACT_FORM_SUBMISSION x
-
-  left join raw.hubspot.form y
-    on x.form_id = y.guid
   ),
   contact as (
     select *
@@ -41,8 +37,7 @@ select
     when contains(f.form_url, 'source=adwords') then 'adwords'
     when contains(f.form_url, 'source=ppc') then 'ppc'
     else 'direct'
-  end as event_source,
-  f.campaign_id
+  end as event_source
 from form f
 
 left join contact c

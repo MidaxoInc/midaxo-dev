@@ -17,8 +17,7 @@ select
   e.created::timestamp_ntz as eventdate,
   'email' as event_type,
   e.type as event_action,
-  'email' as event_source,
-  e.email_campaign_id as campaign_id
+  e.email_campaign_id::varchar as event_source
 from email e
 
 left join contact c

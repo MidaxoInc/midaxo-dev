@@ -6,33 +6,33 @@ with
   pipelines as (select * from {{ref('PIPELINE_PROPERTY')}})
 
 select
-datespine.*,
-dealtable.deal_id,
-dealtable.deal_name,
-dealtable.company_name,
-pipelines.pipeline_type,
-pipelines.pipeline_stage,
-dealhistory.deal_amount,
-dealhistory.createdate,
-dealhistory.closedate,
-dealhistory.validfrom,
-dealhistory.validto
-from datespine
+d.*,
+t.deal_id,
+t.deal_name,
+t.company_name,
+p.pipeline_type,
+p.pipeline_stage,
+h.deal_amount,
+h.createdate,
+h.closedate,
+h.validfrom,
+h.validto
+from datespine d
 
-inner join dealtable
+inner join dealtable t
   on (
     dealtable.createdate <= datespine.ddate
     and least(current_date(), dealtable.closedate) >= datespine.ddate
   )
 
-left join dealhistory
+left join dealhistory h
   on (
     dealhistory.deal_id = dealtable.deal_id
     and dealhistory.validfrom <= datespine.ddate
     and dealhistory.validto >= datespine.ddate
   )
 
-left join pipelines
+left join pipelines p
   on dealhistory.deal_pipeline_stage_id = pipelines.stage_id
 
 where datespine.ddate <= dealtable.closedate
