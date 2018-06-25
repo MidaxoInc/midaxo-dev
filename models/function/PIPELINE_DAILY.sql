@@ -21,19 +21,19 @@ from datespine d
 
 inner join dealtable t
   on (
-    dealtable.createdate <= datespine.ddate
-    and least(current_date(), dealtable.closedate) >= datespine.ddate
+    t.createdate <= d.ddate
+    and least(current_date(), t.closedate) >= d.ddate
   )
 
 left join dealhistory h
   on (
-    dealhistory.deal_id = dealtable.deal_id
-    and dealhistory.validfrom <= datespine.ddate
-    and dealhistory.validto >= datespine.ddate
+    h.deal_id = t.deal_id
+    and h.validfrom <= d.ddate
+    and h.validto >= d.ddate
   )
 
 left join pipelines p
-  on dealhistory.deal_pipeline_stage_id = pipelines.stage_id
+  on h.deal_pipeline_stage_id = p.stage_id
 
-where datespine.ddate <= dealtable.closedate
+where d.ddate <= t.closedate
 order by ddate desc
