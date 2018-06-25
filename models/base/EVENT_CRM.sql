@@ -4,7 +4,7 @@ with
     y.contact_id as contact_id,
     x.timestamp::timestamp_ntz as eventdate,
     lower(x.type) as event_type,
-    null as event_action,
+    'na' as event_action,
     x.owner_id::varchar as event_source
   from RAW.HUBSPOT.ENGAGEMENT x
 

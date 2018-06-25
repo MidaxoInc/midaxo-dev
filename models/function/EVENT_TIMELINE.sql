@@ -1,23 +1,52 @@
 with
-  events as (
-    select * from {{ref('EVENT_CRM')}}
+  event as (
+    select * from {{ref('EVENT_CRM')}} crm
+    where crm.event_type <> 'other'
     union
     select * from {{ref('EVENT_EMAIL')}}
     union
     select * from {{ref('EVENT_FORM')}}
+    union
+    select * from {{ref('EVENT_DEAL')}}
     order by eventdate asc
+  ),
+  dealhistory as (
+    select
+      x.company_id,
+      y.pipeline_type,
+      y.pipeline_stage,
+      x.validfrom,
+      x.validto
+    from {{ref('DEAL_ARCHIVE_CLEAN')}} x
+      left join {{ref('PIPELINE_PROPERTY')}} y
+        on
+          x.deal_pipeline_id = y.pipeline_id
+          and x.deal_pipeline_stage_id = y.stage_id
+  ),
+  datetable as (
+    select * from {{ref('DATETABLE_CLEAN')}}
   )
 
 select
+  d.*,
   e.*,
+  h.pipeline_type,
+  h.pipeline_stage,
   row_number() over(
-    partition by company_id
-    order by company_id, eventdate asc
-  ) as companytime,
+    partition by e.company_id
+    order by e.company_id, e.eventdate asc
+  ) as company_event_no,
+  row_number() over(
+    partition by e.contact_id
+    order by e.contact_id, e.eventdate asc
+  ) as contact_event_no
+from event e
 
-  row_number() over(
-    partition by contact_id
-    order by contact_id, eventdate asc
-  ) as contacttime
-from events e
-order by company_id, eventdate asc
+  left join datetable d
+    on to_date(e.eventdate) = d.ddate
+
+  left join dealhistory h
+    on e.company_id = h.company_id
+    and e.eventdate between h.validfrom and h.validto
+
+order by e.company_id, e.eventdate asc
