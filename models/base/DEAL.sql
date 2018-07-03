@@ -32,5 +32,5 @@ left join
 left join
   {{ref('PIPELINE_PROPERTY')}} p
   on p.stage_id = d.deal_pipeline_stage_id
-
+where d.owner_id is not null
 order by closedate desc
