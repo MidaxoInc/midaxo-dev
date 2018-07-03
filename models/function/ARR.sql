@@ -1,4 +1,3 @@
---WIP, need to write logic to pull in verified ARR from contract else use amount from deal (make sure to pull the verified flag from the contract table)
 select
 c.*,
 a.deal_id,
@@ -10,8 +9,8 @@ a.deal_name,
 a.company_name,
 a.closedate,
 case
-  when (a.deal_type = 'New' and is_partner = 'TRUE')
-  then 'Partner New'
+  when (a.deal_type = 'new' and is_partner = 'TRUE')
+  then 'partner new'
   else a.pipeline_type
 end as pipeline_type,
 a.pipeline_stage,
@@ -76,4 +75,4 @@ left join {{ref('CONTRACT')}} b
 left join {{ref('DATETABLE_CLEAN')}} c
   on to_date(a.closedate) = c.ddate
 
-where a.pipeline_stage = 'Closed Won'
+where a.pipeline_stage ilike '%won'
