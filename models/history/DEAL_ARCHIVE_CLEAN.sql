@@ -1,3 +1,5 @@
+-- 7/1 - need to add logic to use 'partner engagement' pipeline prior to 7/1, and 'engagement' onwards
+
 select
   a.deal_id,
   a.company_id,
