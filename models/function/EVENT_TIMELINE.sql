@@ -15,6 +15,7 @@ with
       x.company_id,
       y.pipeline_type,
       y.pipeline_stage,
+      y.pipeline_stageorder,
       x.validfrom,
       x.validto
     from {{ref('DEAL_ARCHIVE_CLEAN')}} x
@@ -32,6 +33,7 @@ select
   e.*,
   h.pipeline_type,
   h.pipeline_stage,
+  h.pipeline_stageorder,
   row_number() over(
     partition by e.company_id
     order by e.company_id, e.eventdate asc

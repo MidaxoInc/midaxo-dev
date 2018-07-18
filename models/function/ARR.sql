@@ -14,6 +14,7 @@ case
   else a.pipeline_type
 end as pipeline_type,
 a.pipeline_stage,
+a.pipeline_stageorder,
 a.deal_type,
 a.deal_attributed_to,
 a.engagement_partner,

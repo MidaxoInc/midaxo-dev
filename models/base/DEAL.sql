@@ -11,6 +11,7 @@ select
   d.property_hs_lastmodifieddate as changedate,
   p.pipeline_type,
   p.pipeline_stage,
+  p.pipeline_stageorder,
   d.property_amount as deal_amount,
   d.property_attributed_to as deal_attributed_to,
   d.property_recognized_arr as recognized_arr,
