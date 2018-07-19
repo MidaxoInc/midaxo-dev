@@ -20,7 +20,8 @@ select
     when e.type = 'OPEN' then 'open'
     else 'click'
     end as event_action,
-  e.email_campaign_id::varchar as event_source
+  'email' as event_source,
+  e.email_campaign_id::varchar as event_owner_campaign_url
 from email e
 
 left join contact c

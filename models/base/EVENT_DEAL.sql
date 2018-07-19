@@ -1,3 +1,5 @@
+-- need to update deal creation for direct as 'entered qualification' or 'created and not in closed lost, activation, or nurture'
+
 with
   dealcreate as (
     select
@@ -6,7 +8,8 @@ with
       a.createdate::timestamp_ntz as eventdate,
       'deal_created' as eventtype,
       'na' as eventaction,
-      a.owner_id::varchar as eventsource
+      'sales' as eventsource,
+      a.owner_id::varchar as event_owner_campaign_url
     from {{ref('DEAL')}} a
     where a.company_id is not null
   ),
@@ -20,7 +23,8 @@ with
          when contains(lower(b.pipeline_stage), 'won') then 'won'
          else 'lost'
        end as event_action,
-       b.owner_id::varchar as event_source
+       'sales' as event_source,
+       b.owner_id::varchar as event_owner_campaign_url
      from {{ref('DEAL')}} b
      where contains(lower(b.pipeline_stage), 'closed')
        and b.company_id is not null

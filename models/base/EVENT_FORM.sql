@@ -37,7 +37,8 @@ select
     when contains(f.form_url, 'source=adwords') then 'adwords'
     when contains(f.form_url, 'source=ppc') then 'ppc'
     else 'direct'
-  end as event_source
+  end as event_source,
+  f.form_url as event_owner_campaign_url
 from form f
 
 left join contact c

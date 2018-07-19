@@ -5,7 +5,8 @@ with
     x.timestamp::timestamp_ntz as eventdate,
     lower(x.type) as event_type,
     'na' as event_action,
-    x.owner_id::varchar as event_source
+    'sales' as event_source,
+    x.owner_id::varchar as event_owner_campaign_url
   from RAW.HUBSPOT.ENGAGEMENT x
 
   left join RAW.HUBSPOT.ENGAGEMENT_CONTACT y
@@ -27,7 +28,8 @@ select
     else 'other'
   end as event_type,
   e.event_action,
-  e.event_source::varchar as event_source
+  e.event_source::varchar as event_source,
+  e.event_owner_campaign_url::varchar as event_owner_campaign_url
 from engagement e
 
 left join contact c
