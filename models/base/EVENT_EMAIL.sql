@@ -1,9 +1,13 @@
   -- Only pulls emails that were engaged by the recipient
 with
   email as (
-    select *
-    from RAW.HUBSPOT.EMAIL_EVENT
-    where type in ('OPEN','CLICK','PRINT','FORWARD')
+    select
+      e.*,
+      c.name
+    from RAW.HUBSPOT.EMAIL_EVENT e
+    left join raw.hubspot.email_campaign c
+      on e.email_campaign_id = c.id
+    where e.type in ('OPEN','CLICK','PRINT','FORWARD')
       and created is not null
     ),
   contact as (
@@ -21,7 +25,7 @@ select
     else 'click'
     end as event_action,
   'email' as event_source,
-  e.email_campaign_id::varchar as event_owner_campaign_url
+  e.name::varchar as event_owner_campaign_url
 from email e
 
 left join contact c
