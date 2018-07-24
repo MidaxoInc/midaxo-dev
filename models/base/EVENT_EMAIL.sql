@@ -1,4 +1,4 @@
-  -- Only pulls emails that were engaged by the recipient
+  -- Only pulls emails that were engaged by the recipient, and not "form follow ups" i.e. demo scheduling
 with
   email as (
     select
@@ -25,7 +25,7 @@ select
     else 'click'
     end as event_action,
   'email' as event_source,
-  e.name::varchar as event_owner_campaign_url
+  lower(e.name)::varchar as event_owner_campaign_url
 from email e
 
 left join contact c

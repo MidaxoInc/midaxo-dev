@@ -20,13 +20,14 @@ with
 select
   d.*,
   t.deal_id,
+  t.company_id,
   t.deal_name,
   t.company_name,
   p.pipeline_type,
   p.pipeline_stage,
   p.pipeline_stageorder,
   case
-    when (p.pipeline_stage in ('qualification') or h.deal_amount = '0') then asp.t180_asp
+    when (p.pipeline_stage in ('qualification') or h.deal_amount = 0) then a.t180_asp
     else h.deal_amount
   end as deal_amount,
   h.createdate,
@@ -50,6 +51,9 @@ left join dealhistory h
 
 left join pipelines p
   on h.deal_pipeline_stage_id = p.stage_id
+
+  left join asp a
+    on a.ddate = d.ddate
 
 where d.ddate <= t.closedate
 order by ddate desc

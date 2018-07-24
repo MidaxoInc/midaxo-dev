@@ -3,11 +3,12 @@ with
     select * from {{ref('EVENT_CRM')}} crm
     where crm.event_type <> 'other'
     union
-    select * from {{ref('EVENT_EMAIL')}}
+    select * from {{ref('EVENT_EMAIL')}} email
+    where email.event_owner_campaign_url not in ('demo follow-up%','thank you for registering%')
     union
-    select * from {{ref('EVENT_FORM')}}
+    select * from {{ref('EVENT_FORM')}} form
     union
-    select * from {{ref('EVENT_DEAL')}}
+    select * from {{ref('EVENT_DEAL')}} deal
     order by eventdate asc
   ),
   dealhistory as (
