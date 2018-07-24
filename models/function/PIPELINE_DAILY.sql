@@ -53,7 +53,7 @@ left join pipelines p
   on h.deal_pipeline_stage_id = p.stage_id
 
   left join asp a
-    on a.ddate = d.ddate
+    on to_date(a.ddate) = to_date(d.ddate)
 
 where d.ddate <= t.closedate
 order by ddate desc
