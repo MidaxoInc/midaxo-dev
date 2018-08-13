@@ -5,6 +5,8 @@ select
   a.company_id,
   a.deal_pipeline_stage_id,
   a.deal_pipeline_id,
+  a.forecast_stage,
+  a.deal_type,
   p.pipeline_type,
   p.pipeline_stage,
   a.owner_id,
