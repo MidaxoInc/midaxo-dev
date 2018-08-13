@@ -1,9 +1,10 @@
 select
   d.deal_id,
   c.company_id,
+  c.property_territory as territory,
   d.deal_pipeline_stage_id,
   d.deal_pipeline_id,
-  d.forecast_stage,
+  d.property_forecast_stage as forecast_stage,
   d.owner_id,
   d.property_dealname as deal_name,
   f.property_name as company_name,
