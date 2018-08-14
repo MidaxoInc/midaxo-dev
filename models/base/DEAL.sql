@@ -1,7 +1,7 @@
 select
   d.deal_id,
   c.company_id,
-  c.property_territory as territory,
+  c.property_sales_territory as territory,
   d.deal_pipeline_stage_id,
   d.deal_pipeline_id,
   d.property_forecast_stage as forecast_stage,
