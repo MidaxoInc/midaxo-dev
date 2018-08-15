@@ -2,7 +2,9 @@
 
 select
   a.deal_id,
+  d.deal_name,
   a.company_id,
+  d.company_name,
   a.deal_pipeline_stage_id,
   a.deal_pipeline_id,
   a.forecast_stage,
@@ -19,4 +21,6 @@ select
 from midaxo.dev.deal_archive a
 left join {{ref('PIPELINE_PROPERTY')}} p
   on p.stage_id = a.deal_pipeline_stage_id
+left join {{ref('DEAL')}} d
+  on d.deal_id = a.deal_id
 order by deal_id, closedate desc
