@@ -1,5 +1,5 @@
 -- 7/1 - need to add logic to use 'partner engagement' pipeline prior to 7/1, and 'engagement' onwards
-
+-- 8/15 - need to add unique row identifiers and remove duplicates
 select
   a.deal_id,
   d.deal_name,
@@ -11,6 +11,7 @@ select
   a.deal_type,
   p.pipeline_type,
   p.pipeline_stage,
+  p.pipeline_stageorder
   a.owner_id,
   a.closedate,
   a.createdate,
