@@ -11,7 +11,7 @@ select
   a.deal_type,
   p.pipeline_type,
   p.pipeline_stage,
-  p.pipeline_stageorder
+  p.pipeline_stageorder,
   a.owner_id,
   a.closedate,
   a.createdate,
