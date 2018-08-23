@@ -46,8 +46,7 @@ with
     where
       b.pipeline_type = 'direct'
       and b.pipeline_stage = 'closed won'
-      )
-  ),
+      ),
 
   attribution as (
    select
