@@ -14,8 +14,10 @@ with
         when a.event_type in ('sales_email','sales_call','meeting') then 'outbound'
         else 'other'
       end as event_category,
-      a.company_event_no
-    from MIDAXO.DEV.EVENT_TIMELINE a
+      a.event_owner_campaign_url,
+      a.company_event_no,
+      a.contact_event_no
+    from {{ref('EVENT_TIMELINE')}} a
     ),
 
   pipecreated as (
@@ -27,7 +29,7 @@ with
       b.pipeline_type,
       b.pipeline_stage,
       row_number() over (partition by b.deal_id order by b.validfrom asc) as x
-    from MIDAXO.DEV.DEAL_ARCHIVE_CLEAN  b
+    from {{ref('DEAL_ARCHIVE_CLEAN')}}  b
     where
       b.pipeline_type = 'direct'
       and (b.pipeline_stage = 'qualification'
@@ -87,11 +89,12 @@ select distinct
   t.event_type,
   t.event_action,
   t.event_source,
+  t.event_owner_campaign_url,
   a.t180_asp,
   count(*) over (partition by t.deal_id) as total_eventcount,
   count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source) as detail_eventcount,
   count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source)/count(*) over (partition by t.deal_id) as detail_share,
-  detail_share * a.t180_asp as detail_attr
+  detail_share * a.t180_asp as attributed_pipeline_created
 from attribution t
 left join asp a
   on a.ddate = t.dealcreatedate

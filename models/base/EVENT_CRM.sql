@@ -15,6 +15,10 @@ with
   contact as (
     select *
     from RAW.HUBSPOT.CONTACT
+  ),
+  mstd as (
+    select *
+    from {{ref('MSTD')}}
   )
 
 select
@@ -28,9 +32,12 @@ select
     else 'other'
   end as event_type,
   e.event_action,
-  e.event_source::varchar as event_source,
+  m.team as event_source,
   e.event_owner_campaign_url::varchar as event_owner_campaign_url
 from engagement e
 
 left join contact c
   on e.contact_id = c.id
+left join mstd m
+  on m.owner_id = e.event_owner_campaign_url
+  and last_day(m.ddate,'month') = last_day(e.eventdate,'month')
