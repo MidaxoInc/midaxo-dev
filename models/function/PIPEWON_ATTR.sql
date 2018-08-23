@@ -96,10 +96,8 @@ select distinct
   count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url)/count(*) over (partition by t.deal_id) as detail_share,
   detail_share * t.recognized_arr as attributed_pipeline_won
 from attribution t
-left join asp a
-  on a.ddate = t.dealcreatedate
 left join company c
   on c.company_id = t.company_id
 left join firstevent f
   on f.company_id = t.company_id
-order by t.dealcreatedate, t.deal_id
+order by t.dealclosedate, t.deal_id
