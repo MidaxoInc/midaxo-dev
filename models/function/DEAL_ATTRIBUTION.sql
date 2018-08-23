@@ -54,7 +54,7 @@ with
   ),
 
   asp as (
-    select
+    select distinct
       d.ddate,
       avg(a.deal_amount) over (partition by d.ddate) as t180_asp
     from MIDAXO.DEV.datetable_clean d
