@@ -40,8 +40,9 @@ with
       b.deal_id,
       b.deal_name,
       b.pipeline_type,
-      b.pipeline_stage
-    from {{ref('DEAL_ARCHIVE_CLEAN')}}  b
+      b.pipeline_stage,
+      b.recognized_arr
+    from {{ref('ARR')}}  b
     where
       b.pipeline_type = 'direct'
       and b.pipeline_stage = 'closed won'
@@ -51,28 +52,17 @@ with
   attribution as (
    select
      e.*,
-     p.ddate as dealcreatedate,
+     p.ddate as dealclosedate,
      min(e.eventdate) over (partition by p.deal_id) as firsttouchdate,
      p.deal_id,
-     p.deal_name
+     p.deal_name,
+     p.recognized_arr
    from event e
    inner join pipewon p
     on
       p.company_id = e.company_id
       and e.eventdate <= p.ddate
     where e.event_category <> 'other'
-  ),
-
-  asp as (
-    select distinct
-      d.ddate,
-      avg(a.deal_amount) over (partition by d.ddate) as t180_asp
-    from MIDAXO.DEV.datetable_clean d
-    left join MIDAXO.DEV.deal a
-      on a.closedate between dateadd('day',-180, d.ddate) and d.ddate
-    where
-      contains(a.pipeline_stage, 'won') = true
-      and a.pipeline_type = 'direct'
   ),
 
   company as (
@@ -86,7 +76,7 @@ with
   )
 
 select distinct
-  t.dealcreatedate,
+  t.dealclosedate,
   t.firsttouchdate,
   t.company_id,
   t.deal_id,
@@ -101,11 +91,11 @@ select distinct
   t.event_action,
   t.event_source,
   t.event_owner_campaign_url,
-  a.t180_asp,
+  t.recognized_arr,
   count(*) over (partition by t.deal_id) as total_eventcount,
   count(*) over (partition by t.deal_id,t.event_category,f.first_event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url) as detail_eventcount,
   count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url)/count(*) over (partition by t.deal_id) as detail_share,
-  detail_share * a.t180_asp as attributed_pipeline_created
+  detail_share * t.recognized_arr as attributed_pipeline_won
 from attribution t
 left join asp a
   on a.ddate = t.dealcreatedate
