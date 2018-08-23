@@ -21,16 +21,15 @@ with
     ),
     firstevent as (
       select
-      a.eventdate,
+      a.eventdate as firsteventdate,
       a.company_id,
-      case
-        when a.event_type in ('form','chat') then 'inbound'
-        when a.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
-        when a.event_owner_campaign_url ilike '%webinar%' then 'inbound'
-        when a.event_type in ('sales_email','sales_call','meeting') then 'outbound'
-        else 'other'
-      end as first_event_category
-      from {{ref('EVENT_TIMELINE')}} a
+      a.contact_id,
+      a.event_type as first_event_type,
+      a.event_action as first_event_action,
+      a.event_source as first_event_source,
+      a.event_category as first_event_category,
+      a.event_owner_campaign_url as first_event_owner_campaign_url
+      from event a
       where a.company_event_no = 1
     ),
   pipewon as (

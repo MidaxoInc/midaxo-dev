@@ -19,20 +19,19 @@ with
       a.contact_event_no
     from {{ref('EVENT_TIMELINE')}} a
     ),
-    firstevent as (
-      select
-      a.eventdate,
-      a.company_id,
-      case
-        when a.event_type in ('form','chat') then 'inbound'
-        when a.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
-        when a.event_owner_campaign_url ilike '%webinar%' then 'inbound'
-        when a.event_type in ('sales_email','sales_call','meeting') then 'outbound'
-        else 'other'
-      end as first_event_category
-      from {{ref('EVENT_TIMELINE')}} a
-      where a.company_event_no = 1
-    ),
+  firstevent as (
+    select
+    a.eventdate as firsteventdate,
+    a.company_id,
+    a.contact_id,
+    a.event_type as first_event_type,
+    a.event_action as first_event_action,
+    a.event_source as first_event_source,
+    a.event_category as first_event_category,
+    a.event_owner_campaign_url as first_event_owner_campaign_url
+    from event a
+    where a.company_event_no = 1
+  ),
   pipecreated as (
     select
       to_date(b.validfrom) as ddate,
@@ -72,7 +71,7 @@ with
       avg(a.deal_amount) over (partition by d.ddate) as t180_asp
     from MIDAXO.DEV.datetable_clean d
     left join MIDAXO.DEV.deal a
-      on a.closedate between dateadd('day',-180, d.ddate) and d.ddate
+      on a.closedate between dateadd('month',-7, date_add('day',1,last_day(d.ddate,'month'))) and last_day(d.ddate,'month')
     where
       contains(a.pipeline_stage, 'won') = true
       and a.pipeline_type = 'direct'
