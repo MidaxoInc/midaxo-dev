@@ -92,8 +92,8 @@ select distinct
   t.event_owner_campaign_url,
   a.t180_asp,
   count(*) over (partition by t.deal_id) as total_eventcount,
-  count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source) as detail_eventcount,
-  count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source)/count(*) over (partition by t.deal_id) as detail_share,
+  count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url) as detail_eventcount,
+  count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url)/count(*) over (partition by t.deal_id) as detail_share,
   detail_share * a.t180_asp as attributed_pipeline_created
 from attribution t
 left join asp a
