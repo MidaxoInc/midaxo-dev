@@ -5,7 +5,6 @@ with
     x.timestamp::timestamp_ntz as eventdate,
     lower(x.type) as event_type,
     'na' as event_action,
-    'sales' as event_source,
     x.owner_id::varchar as event_owner_campaign_url
   from RAW.HUBSPOT.ENGAGEMENT x
 

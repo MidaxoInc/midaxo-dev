@@ -19,7 +19,20 @@ with
       a.contact_event_no
     from {{ref('EVENT_TIMELINE')}} a
     ),
-
+    firstevent as (
+      select
+      a.eventdate,
+      a.company_id,
+      case
+        when a.event_type in ('form','chat') then 'inbound'
+        when a.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
+        when a.event_owner_campaign_url ilike '%webinar%' then 'inbound'
+        when a.event_type in ('sales_email','sales_call','meeting') then 'outbound'
+        else 'other'
+      end as first_event_category
+      from {{ref('EVENT_TIMELINE')}} a
+      where a.company_event_no = 1
+    ),
   pipecreated as (
     select
       to_date(b.validfrom) as ddate,
@@ -85,6 +98,7 @@ select distinct
   c.territory,
   c.country,
   c.icp_score,
+  f.first_event_category,
   t.event_category,
   t.event_type,
   t.event_action,
@@ -100,4 +114,6 @@ left join asp a
   on a.ddate = t.dealcreatedate
 left join company c
   on c.company_id = t.company_id
+left join firstevent f
+  on f.company_id = t.company_id
 order by t.dealcreatedate, t.deal_id
