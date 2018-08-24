@@ -76,4 +76,4 @@ left join {{ref('CONTRACT')}} b
 left join {{ref('DATETABLE_CLEAN')}} c
   on to_date(a.closedate) = c.ddate
 
-where a.pipeline_stage ilike '%won'
+where a.pipeline_stage in ('closed won', 'renewed', 'churned')
