@@ -71,7 +71,7 @@ with
       avg(a.deal_amount) over (partition by d.ddate) as t180_asp
     from MIDAXO.DEV.datetable_clean d
     left join MIDAXO.DEV.deal a
-      on a.closedate between dateadd('month',-7, date_add('day',1,last_day(d.ddate,'month'))) and last_day(d.ddate,'month')
+      on a.closedate between dateadd('month',-7, dateadd('day',1,last_day(d.ddate,'month'))) and last_day(d.ddate,'month')
     where
       contains(a.pipeline_stage, 'won') = true
       and a.pipeline_type = 'direct'
