@@ -34,6 +34,7 @@ with
     ),
   pipewon as (
     select
+      b.createdate,
       b.closedate as ddate,
       b.company_id,
       b.deal_id,
@@ -59,7 +60,7 @@ with
    inner join pipewon p
     on
       p.company_id = e.company_id
-      and e.eventdate between dateadd('day',-90,p.ddate) and p.ddate
+      and e.eventdate between dateadd('day',-90,p.createdate) and p.createdate
     where e.event_category = 'inbound'
   ),
 
