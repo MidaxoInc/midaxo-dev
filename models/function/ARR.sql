@@ -7,6 +7,7 @@ a.deal_pipeline_id,
 a.owner_id,
 a.deal_name,
 a.company_name,
+a.createdate,
 a.closedate,
 case
   when (a.deal_type = 'new' and is_partner = 'TRUE')

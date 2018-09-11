@@ -60,7 +60,7 @@ with
    inner join pipewon p
     on
       p.company_id = e.company_id
-      and e.eventdate between dateadd('day',-90,p.createdate) and p.createdate
+      and e.eventdate between dateadd('day',-90, p.createdate) and p.createdate
     where e.event_category = 'inbound'
   ),
 
