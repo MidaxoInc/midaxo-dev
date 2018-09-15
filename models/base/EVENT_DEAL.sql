@@ -3,6 +3,7 @@
 with
   dealcreate as (
     select
+      a.deal_id as engagement_id,
       null as contact_id,
       a.company_id as company_id,
       a.createdate::timestamp_ntz as eventdate,
@@ -15,6 +16,7 @@ with
   ),
   dealclose as(
     select
+       b.deal_id as engagement_id,
        null as contact_id,
        b.company_id as company_id,
        b.closedate::timestamp_ntz as eventdate,

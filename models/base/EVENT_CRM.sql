@@ -1,6 +1,7 @@
 with
   engagement as (
   select
+    x.id,
     y.contact_id as contact_id,
     x.timestamp::timestamp_ntz as eventdate,
     lower(x.type) as event_type,
@@ -21,6 +22,7 @@ with
   )
 
 select
+  e.id as engagement_id,
   c.id as contact_id,
   c.property_associatedcompanyid as company_id,
   e.eventdate,

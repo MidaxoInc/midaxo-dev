@@ -1,6 +1,7 @@
 with
   form as (
   select
+    x.conversion_id,
     x.contact_id,
     x.timestamp::timestamp_ntz as eventdate,
     lower(x.title) as form_label,
@@ -13,6 +14,7 @@ with
     )
 
 select
+  f.conversion_id as engagement_id,
   c.id as contact_id,
   c.property_associatedcompanyid as company_id,
   f.eventdate,
