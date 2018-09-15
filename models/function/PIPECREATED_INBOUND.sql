@@ -61,8 +61,8 @@ with
     on
       p.company_id = e.company_id
       and p.x=1
-      and e.eventdate <= p.ddate
-    where e.event_category <> 'other'
+      and e.eventdate between dateadd('day',-90,p.ddate) and p.ddate
+    where e.event_category = 'inbound'
   ),
 
   asp as (

@@ -19,62 +19,49 @@ with
       a.contact_event_no
     from {{ref('EVENT_TIMELINE')}} a
     ),
-  firstevent as (
+    firstevent as (
+      select
+      a.eventdate as firsteventdate,
+      a.company_id,
+      a.contact_id,
+      a.event_type as first_event_type,
+      a.event_action as first_event_action,
+      a.event_source as first_event_source,
+      a.event_category as first_event_category,
+      a.event_owner_campaign_url as first_event_owner_campaign_url
+      from event a
+      where a.company_event_no = 1
+    ),
+  pipewon as (
     select
-    a.eventdate as firsteventdate,
-    a.company_id,
-    a.contact_id,
-    a.event_type as first_event_type,
-    a.event_action as first_event_action,
-    a.event_source as first_event_source,
-    a.event_category as first_event_category,
-    a.event_owner_campaign_url as first_event_owner_campaign_url
-    from event a
-    where a.company_event_no = 1
-  ),
-  pipecreated as (
-    select
-      to_date(b.validfrom) as ddate,
+      b.createdate,
+      b.closedate as ddate,
       b.company_id,
       b.deal_id,
       b.deal_name,
       b.pipeline_type,
       b.pipeline_stage,
-      row_number() over (partition by b.deal_id order by b.validfrom asc) as x
-    from {{ref('DEAL_ARCHIVE_CLEAN')}}  b
+      b.recognized_arr
+    from {{ref('ARR')}}  b
     where
       b.pipeline_type = 'direct'
-      and (b.pipeline_stage = 'qualification'
-        or (to_date(b.createdate) = ddate and b.pipeline_stage not in ('activation','nurture'))
-      )
-  ),
+      and b.pipeline_stage = 'closed won'
+      ),
 
   attribution as (
    select
      e.*,
-     p.ddate as dealcreatedate,
+     p.ddate as dealclosedate,
      min(e.eventdate) over (partition by p.deal_id) as firsttouchdate,
      p.deal_id,
-     p.deal_name
+     p.deal_name,
+     p.recognized_arr
    from event e
-   inner join pipecreated p
+   inner join pipewon p
     on
       p.company_id = e.company_id
-      and p.x=1
-      and e.eventdate <= p.ddate
-    where e.event_category <> 'other'
-  ),
-
-  asp as (
-    select distinct
-      d.ddate,
-      avg(a.deal_amount) over (partition by d.ddate) as t180_asp
-    from MIDAXO.DEV.datetable_clean d
-    left join MIDAXO.DEV.deal a
-      on a.closedate between dateadd('month',-7, dateadd('day',1,last_day(d.ddate,'month'))) and last_day(d.ddate,'month')
-    where
-      contains(a.pipeline_stage, 'won') = true
-      and a.pipeline_type = 'direct'
+      and e.eventdate between dateadd('day',-90, p.createdate) and p.createdate
+    where e.event_category = 'inbound'
   ),
 
   company as (
@@ -88,7 +75,7 @@ with
   )
 
 select distinct
-  t.dealcreatedate,
+  t.dealclosedate,
   t.firsttouchdate,
   t.company_id,
   t.deal_id,
@@ -103,16 +90,14 @@ select distinct
   t.event_action,
   t.event_source,
   t.event_owner_campaign_url,
-  a.t180_asp,
+  t.recognized_arr,
   count(*) over (partition by t.deal_id) as total_eventcount,
   count(*) over (partition by t.deal_id,t.event_category,f.first_event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url) as detail_eventcount,
   count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url)/count(*) over (partition by t.deal_id) as detail_share,
-  detail_share * a.t180_asp as attributed_pipeline_created
+  detail_share * t.recognized_arr as attributed_pipeline_won
 from attribution t
-left join asp a
-  on a.ddate = t.dealcreatedate
 left join company c
   on c.company_id = t.company_id
 left join firstevent f
   on f.company_id = t.company_id
-order by t.dealcreatedate, t.deal_id
+order by t.dealclosedate, t.deal_id

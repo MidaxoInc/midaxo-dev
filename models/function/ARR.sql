@@ -7,6 +7,7 @@ a.deal_pipeline_id,
 a.owner_id,
 a.deal_name,
 a.company_name,
+a.createdate,
 a.closedate,
 case
   when (a.deal_type = 'new' and is_partner = 'TRUE')
@@ -76,4 +77,4 @@ left join {{ref('CONTRACT')}} b
 left join {{ref('DATETABLE_CLEAN')}} c
   on to_date(a.closedate) = c.ddate
 
-where a.pipeline_stage ilike '%won'
+where a.pipeline_stage in ('closed won', 'renewed', 'churned')
