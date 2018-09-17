@@ -14,7 +14,8 @@ with
     )
 
 select
-  f.conversion_id as engagement_id,
+  md5(f.conversion_id) as event_id,
+  f.conversion_id::varchar as conversion_id,
   c.id as contact_id,
   c.property_associatedcompanyid as company_id,
   f.eventdate,
@@ -38,7 +39,7 @@ select
     when contains(f.form_url, 'source=facebook') then 'facebook'
     when contains(f.form_url, 'source=adwords') then 'adwords'
     when contains(f.form_url, 'source=ppc') then 'ppc'
-    else 'direct'
+    else 'organic'
   end as event_source,
   f.form_url as event_owner_campaign_url
 from form f

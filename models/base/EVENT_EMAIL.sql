@@ -16,7 +16,8 @@ with
     )
 
 select
-  e.id as engagement_id,
+  md5(e.id) as event_id,
+  e.id::varchar as email_id,
   c.id as contact_id,
   c.property_associatedcompanyid as company_id,
   e.created::timestamp_ntz as eventdate,

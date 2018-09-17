@@ -1,37 +1,17 @@
 with
   event as (
     select
-      a.eventdate,
-      a.company_id,
-      a.contact_id,
-      a.event_type,
-      a.event_action,
-      a.event_source,
+      a.*,
       case
         when a.event_type in ('form','chat') then 'inbound'
         when a.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
         when a.event_owner_campaign_url ilike '%webinar%' then 'inbound'
+        when a.event_source ilike 'sdr' then 'sdr'
         when a.event_type in ('sales_email','sales_call','meeting') then 'outbound'
         else 'other'
-      end as event_category,
-      a.event_owner_campaign_url,
-      a.company_event_no,
-      a.contact_event_no
+      end as event_category
     from {{ref('EVENT_TIMELINE')}} a
     ),
-  firstevent as (
-    select
-    a.eventdate as firsteventdate,
-    a.company_id,
-    a.contact_id,
-    a.event_type as first_event_type,
-    a.event_action as first_event_action,
-    a.event_source as first_event_source,
-    a.event_category as first_event_category,
-    a.event_owner_campaign_url as first_event_owner_campaign_url
-    from event a
-    where a.company_event_no = 1
-  ),
   pipecreated as (
     select
       to_date(b.validfrom) as ddate,
@@ -48,6 +28,10 @@ with
         or (to_date(b.createdate) = ddate and b.pipeline_stage not in ('activation','nurture'))
       )
   ),
+
+  dealvalue as
+  (select a.*
+  from {{ref('DEAL')}} a),
 
   attribution as (
    select
@@ -69,8 +53,8 @@ with
     select distinct
       d.ddate,
       avg(a.deal_amount) over (partition by d.ddate) as t180_asp
-    from MIDAXO.DEV.datetable_clean d
-    left join MIDAXO.DEV.deal a
+    from {{ref('DATETABLE_CLEAN')}} d
+    left join {{ref('DEAL')}} a
       on a.closedate between dateadd('month',-7, dateadd('day',1,last_day(d.ddate,'month'))) and last_day(d.ddate,'month')
     where
       contains(a.pipeline_stage, 'won') = true
@@ -88,31 +72,22 @@ with
   )
 
 select distinct
-  t.dealcreatedate,
-  t.firsttouchdate,
-  t.company_id,
-  t.deal_id,
+  t.*,
   c.company_name,
-  t.deal_name,
   c.territory,
   c.country,
   c.icp_score,
-  f.first_event_category,
-  t.event_category,
-  t.event_type,
-  t.event_action,
-  t.event_source,
-  t.event_owner_campaign_url,
-  a.t180_asp,
+  CASE
+  WHEN d.recognized_arr > 0 then d.recognized_arr
+  WHEN d.deal_amount > 0 then d.deal_amount
+  ELSE a.t180_asp END AS deal_value,
   count(*) over (partition by t.deal_id) as total_eventcount,
-  count(*) over (partition by t.deal_id,t.event_category,f.first_event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url) as detail_eventcount,
-  count(*) over (partition by t.deal_id,t.event_category,t.event_type,t.event_action,t.event_source,t.event_owner_campaign_url)/count(*) over (partition by t.deal_id) as detail_share,
-  detail_share * a.t180_asp as attributed_pipeline_created
+  count(*) over (partition by t.deal_id, t.event_id) as detail_eventcount,
+  count(*) over (partition by t.deal_id, t.event_id)/count(*) over (partition by t.deal_id) as detail_share
 from attribution t
 left join asp a
   on a.ddate = t.dealcreatedate
 left join company c
   on c.company_id = t.company_id
-left join firstevent f
-  on f.company_id = t.company_id
-order by t.dealcreatedate, t.deal_id
+left join dealvalue d
+  on d.deal_id = t.deal_id
