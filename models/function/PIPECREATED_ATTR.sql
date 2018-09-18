@@ -24,9 +24,7 @@ with
     from {{ref('DEAL_ARCHIVE_CLEAN')}}  b
     where
       b.pipeline_type = 'direct'
-      and (b.pipeline_stage = 'qualification'
-        or (to_date(b.createdate) = ddate and b.pipeline_stage not in ('activation','nurture'))
-      )
+      and b.pipeline_stage not in ('activation','nurture','closed lost')
   ),
 
   dealvalue as

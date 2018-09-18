@@ -3,7 +3,8 @@
 select
   a.deal_id,
   d.deal_name,
-  a.company_id,
+  case  when a.company_id is null then d.company_id
+        else a.company_id end as company_id,
   d.company_name,
   a.deal_pipeline_stage_id,
   a.deal_pipeline_id,

@@ -3,7 +3,7 @@ with
   select
     x.id,
     y.contact_id as contact_id,
-    x.timestamp::timestamp_ntz as eventdate,
+    x.created_at::timestamp_ntz as eventdate,
     lower(x.type) as event_type,
     'na' as event_action,
     x.owner_id::varchar as event_owner_campaign_url
@@ -34,7 +34,7 @@ select distinct
     else 'other'
   end as event_type,
   e.event_action,
-  m.team as event_source,
+  lower(m.team) as event_source,
   e.event_owner_campaign_url::varchar as event_owner_campaign_url
 from engagement e
 
