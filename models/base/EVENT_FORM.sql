@@ -20,8 +20,8 @@ select
   c.property_associatedcompanyid as company_id,
   f.eventdate,
   case
-    when contains(f.form_label,'drift') then 'chat'
-    else 'form'
+    when contains(f.form_label,'drift') then 'chat_conversion'
+    else 'form_conversion'
   end as event_type,
   case
     when contains(f.form_label,'webinar') then 'webinar'
@@ -41,7 +41,7 @@ select
     when contains(f.form_url, 'source=ppc') then 'ppc'
     else 'organic'
   end as event_source,
-  f.form_url as event_owner_campaign_url
+  f.form_url::varchar as event_owner_campaign_url
 from form f
 
 left join contact c

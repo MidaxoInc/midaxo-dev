@@ -24,7 +24,7 @@ with
 select distinct
   md5(e.id) as event_id,
   e.id::varchar as engagement_id,
-  null as contact_id,
+  c.id as contact_id,
   c.property_associatedcompanyid as company_id,
   e.eventdate,
   case
