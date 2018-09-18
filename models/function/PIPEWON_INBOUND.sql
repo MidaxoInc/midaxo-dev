@@ -15,8 +15,7 @@ with
         else 'other'
       end as event_category,
       a.event_owner_campaign_url,
-      a.company_event_no,
-      a.contact_event_no
+      a.company_event_no
     from {{ref('EVENT_TIMELINE')}} a
     ),
     firstevent as (
