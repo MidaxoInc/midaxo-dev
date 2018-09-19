@@ -3,7 +3,7 @@ with
     select
       a.*,
       case
-        when a.event_type in ('form_conversion','chat_conversion') then 'inbound'
+        when a.event_type in ('form_conversion','chat_conversion', 'web_visit') then 'inbound'
         when a.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
         when a.event_owner_campaign_url ilike '%webinar%' then 'inbound'
         when a.event_source ilike 'sdr' then 'sdr'
