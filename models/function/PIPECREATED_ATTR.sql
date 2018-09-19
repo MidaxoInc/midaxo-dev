@@ -3,10 +3,11 @@ with
     select
       a.*,
       case
-        when a.event_type in ('form','chat') then 'inbound'
+        when a.event_type in ('form_conversion','chat_conversion') then 'inbound'
         when a.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
         when a.event_owner_campaign_url ilike '%webinar%' then 'inbound'
         when a.event_source ilike 'sdr' then 'sdr'
+        when a.event_type in ('chat_response') then 'sdr'
         when a.event_type in ('sales_email','sales_call','meeting') then 'outbound'
         else 'other'
       end as event_category
@@ -29,7 +30,9 @@ with
 
   dealvalue as
   (select a.*
-  from {{ref('DEAL')}} a),
+  from {{ref('DEAL')}} a
+  where a.pipeline_type = 'direct'
+    and a.pipeline_stage not in ('activation','nurture','closed lost')),
 
   attribution as (
    select
@@ -80,8 +83,8 @@ select distinct
   WHEN d.deal_amount > 0 then d.deal_amount
   ELSE a.t180_asp END AS deal_value,
   count(*) over (partition by t.deal_id) as total_eventcount,
-  count(*) over (partition by t.deal_id, t.event_id) as detail_eventcount,
-  count(*) over (partition by t.deal_id, t.event_id)/count(*) over (partition by t.deal_id) as detail_share
+  count(*) over (partition by t.deal_id, t.event_id, t.contact_id) as detail_eventcount,
+  count(*) over (partition by t.deal_id, t.event_id, t.contact_id)/count(*) over (partition by t.deal_id) as detail_share
 from attribution t
 left join asp a
   on a.ddate = t.dealcreatedate

@@ -9,8 +9,6 @@ with
     select * from {{ref('EVENT_FORM')}} form
     where form.event_type <> 'chat conversion' -- pulling chat conversion info into event_drift
     union
-    select * from {{ref('EVENT_DEAL')}} deal
-    union
     select * from {{ref('EVENT_DRIFT')}} drift
   ),
   datetable as (
