@@ -31,10 +31,11 @@ select
     else 'other'
   end as event_action,
   case
+    when contains(f.form_label,'linkedin') then 'linkedin'
+    when contains(f.form_url, 'source=linkedin') then 'linkedin'
     when contains(f.form_url, 'source=hs_email') then 'email'
     when contains(f.form_url, 'source=email') then 'email'
     when contains(f.form_url, 'source=hs_automation') then 'email'
-    when contains(f.form_url, 'source=linkedin') then 'linkedin'
     when contains(f.form_url, 'source=twitter') then 'twitter'
     when contains(f.form_url, 'source=facebook') then 'facebook'
     when contains(f.form_url, 'source=adwords') then 'adwords'
