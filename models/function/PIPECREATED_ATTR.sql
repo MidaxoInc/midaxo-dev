@@ -1,16 +1,7 @@
 with
   event as (
     select
-      a.*,
-      case
-        when a.event_type in ('form_conversion','chat_conversion', 'web_visit') then 'inbound'
-        when a.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
-        when a.event_owner_campaign_url ilike '%webinar%' then 'inbound'
-        when a.event_source ilike 'sdr' then 'sdr'
-        when a.event_type in ('chat_response') then 'sdr'
-        when a.event_type in ('sales_email','sales_call','meeting') then 'outbound'
-        else 'other'
-      end as event_category
+      a.*
     from {{ref('EVENT_TIMELINE')}} a
     ),
   pipecreated as (
