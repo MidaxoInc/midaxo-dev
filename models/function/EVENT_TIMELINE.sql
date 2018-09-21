@@ -21,12 +21,12 @@ select
   d.*,
   e.*,
   case
-    when e.event_type in ('form_conversion','chat_conversion', 'web_visit') then 'inbound'
-    when e.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
-    when e.event_owner_campaign_url ilike '%webinar%' then 'inbound'
+    when e.event_type in ('form_conversion','chat_conversion', 'web_visit') then 'marketing'
+    when e.event_owner_campaign_url ilike '%demo follow-up%' then 'marketing'
+    when e.event_owner_campaign_url ilike '%webinar%' then 'marketing'
     when e.event_source ilike 'sdr' then 'sdr'
     when e.event_type in ('chat_response') then 'sdr'
-    when e.event_type in ('sales_email','sales_call','meeting') then 'outbound'
+    when e.event_type in ('sales_email','sales_call','meeting') then 'ae'
     else 'other'
   end as event_category,
   row_number() over(
