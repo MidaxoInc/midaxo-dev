@@ -8,7 +8,7 @@ with
       a.event_action,
       a.event_source,
       case
-        when a.event_type in ('form','chat') then 'inbound'
+        when a.event_type in ('form_conversion','chat_conversion') then 'inbound'
         when a.event_owner_campaign_url ilike '%demo follow-up%' then 'inbound'
         when a.event_owner_campaign_url ilike '%webinar%' then 'inbound'
         when a.event_type in ('sales_email','sales_call','meeting') then 'outbound'
