@@ -35,9 +35,9 @@ select
     partition by e.company_id
     order by e.company_id, e.eventdate asc
   ) as company_event_no
-from datetable d
+from event e
 
-  left join event e
+  left join datetable d
     on to_date(e.eventdate) = d.ddate
 
 where to_date(e.eventdate) <= current_date
