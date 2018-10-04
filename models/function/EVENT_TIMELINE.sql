@@ -12,6 +12,8 @@ with
     select * from {{ref('EVENT_DRIFT')}} drift
     union
     select * from {{ref('EVENT_WEBVISIT')}} web
+    union
+    select * from {{ref('EVENT_DEAL')}} deal
   ),
   datetable as (
     select * from {{ref('DATETABLE_CLEAN')}}
@@ -33,9 +35,11 @@ select
     partition by e.company_id
     order by e.company_id, e.eventdate asc
   ) as company_event_no
-from event e
+from datetable d
 
-  left join datetable d
+  left join event e
     on to_date(e.eventdate) = d.ddate
+
+where to_date(e.eventdate) <= current_date
 
 order by e.company_id, e.eventdate desc

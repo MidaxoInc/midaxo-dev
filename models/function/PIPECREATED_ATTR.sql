@@ -70,8 +70,8 @@ select distinct
   c.country,
   c.icp_score,
   CASE
-  WHEN d.recognized_arr > 0 then d.recognized_arr
-  WHEN d.deal_amount > 0 then d.deal_amount
+  WHEN ifnull(d.recognized_arr,0) > 0 then d.recognized_arr
+  WHEN ifnull(d.deal_amount,0) > 0 then d.deal_amount
   ELSE a.t180_asp END AS deal_value,
   count(*) over (partition by t.deal_id) as total_eventcount,
   count(*) over (partition by t.deal_id, t.event_id, t.contact_id) as detail_eventcount,
