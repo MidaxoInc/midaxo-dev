@@ -60,7 +60,7 @@ with
       c.property_country as country,
       c.property_sales_territory as territory,
       c.property_icp_score as icp_score
-    from raw.hubspot.company c
+    from raw.hubspot2.company c
   )
 
 select distinct

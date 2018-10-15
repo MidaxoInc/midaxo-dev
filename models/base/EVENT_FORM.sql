@@ -6,11 +6,11 @@ with
     x.timestamp::timestamp_ntz as eventdate,
     lower(x.title) as form_label,
     lower(x.page_url) as form_url
-  from RAW.HUBSPOT.CONTACT_FORM_SUBMISSION x
+  from raw.hubspot2.CONTACT_FORM_SUBMISSION x
   ),
   contact as (
     select *
-    from RAW.HUBSPOT.CONTACT
+    from raw.hubspot2.CONTACT
     )
 
 select

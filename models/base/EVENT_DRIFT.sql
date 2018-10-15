@@ -22,7 +22,7 @@ select
   ifnull(f.event_source,'other') as event_source,
   m.owner_id::varchar as event_owner_campaign_url
 FROM raw r
-left join raw.hubspot.contact c
+left join raw.hubspot2.contact c
   ON c.property_email = r.contact_email
 left join {{ref('EVENT_FORM')}} f
   on f.contact_id = c.id
@@ -44,7 +44,7 @@ select
   'drift' as event_source,
   m.owner_id::varchar as event_owner_campaign_url
 FROM raw r
-left join raw.hubspot.contact c
+left join raw.hubspot2.contact c
   ON c.property_email = r.contact_email
 left join {{ref('EVENT_FORM')}} f
   on f.contact_id = c.id

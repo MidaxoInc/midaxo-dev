@@ -13,7 +13,7 @@ select
   a.arr_quota,
   a.meetings_quota
 from raw.manual.mstd a
-left join raw.hubspot.owner b
+left join raw.hubspot2.owner b
   on a.user_email = b.email
-left join raw.hubspot.owner c
+left join raw.hubspot2.owner c
   on a.manager_email = c.email

@@ -4,15 +4,15 @@ with
     select
       e.*,
       c.name
-    from RAW.HUBSPOT.EMAIL_EVENT e
-    left join raw.hubspot.email_campaign c
+    from raw.hubspot2.EMAIL_EVENT e
+    left join raw.hubspot2.email_campaign c
       on e.email_campaign_id = c.id
     where e.type in ('OPEN','CLICK','PRINT','FORWARD')
       and created is not null
     ),
   contact as (
     select *
-    from RAW.HUBSPOT.CONTACT
+    from raw.hubspot2.CONTACT
     )
 
 select

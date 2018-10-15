@@ -1,2 +1,2 @@
 select c.*
-from raw.hubspot.company c
+from raw.hubspot2.company c

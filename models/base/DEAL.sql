@@ -25,12 +25,12 @@ select
   d.property_engagement_partner as engagement_partner,
   d.property_is_partner_retainer as is_partner
 from
-  raw.hubspot.deal d
+  raw.hubspot2.deal d
 left join
-  raw.hubspot.deal_company c
+  raw.hubspot2.deal_company c
   on c.deal_id = d.deal_id
 left join
-  raw.hubspot.company f
+  raw.hubspot2.company f
   on f.id = c.company_id
 left join
   {{ref('PIPELINE_PROPERTY')}} p
