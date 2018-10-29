@@ -4,7 +4,7 @@ with
     select
       e.*,
       c.name,
-      row_number() over (partition by e.id order by e.created) as dupes
+      row_number() over (partition by e.sent_by_id, e.recipient order by e.created) as dupes
     from raw.hubspot2.EMAIL_EVENT e
     left join raw.hubspot2.email_campaign c
       on e.email_campaign_id = c.id
