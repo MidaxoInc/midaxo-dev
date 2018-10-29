@@ -3,7 +3,8 @@ with
   email as (
     select
       e.*,
-      c.name
+      c.name,
+      row_number() over (partition by e.id order by e.created) as dupes
     from raw.hubspot2.EMAIL_EVENT e
     left join raw.hubspot2.email_campaign c
       on e.email_campaign_id = c.id
@@ -32,5 +33,5 @@ from email e
 
 left join contact c
   on e.recipient = c.property_email
-
+where e.dupes = 1
 order by contact_id, eventdate asc
