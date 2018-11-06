@@ -2,7 +2,7 @@ with visits AS
   (SELECT md5(h.company_id||h.timestamp) AS event_id,
           null AS contact_id,
           h.company_id,
-          last_day(h.timestamp,'week') AS eventdate,
+          h.timestamp::timestamp_ntz AS eventdate,
           'web_visit' AS event_type,
           h.value::timestamp_ntz AS lastvisit,
           max(h.value::timestamp_ntz) over (partition BY company_id
