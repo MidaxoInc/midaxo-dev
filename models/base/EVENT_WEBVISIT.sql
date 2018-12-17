@@ -20,3 +20,4 @@ SELECT  v.event_id,
         'na' as event_owner_campaign_url
 FROM visits v
 WHERE v.lastvisit > v.max_lastvisit
+  and h.value is not null
