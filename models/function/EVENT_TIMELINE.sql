@@ -11,8 +11,8 @@ with
     union
     select * from {{ref('EVENT_DRIFT')}} drift
     union
-    select * from {{ref('EVENT_WEBVISIT')}} web
-    union
+--    select * from {{ref('EVENT_WEBVISIT')}} web
+--    union
     select * from {{ref('EVENT_DEAL')}} deal
   ),
   datetable as (
