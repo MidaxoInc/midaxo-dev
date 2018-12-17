@@ -18,7 +18,7 @@ with
   ),
   contact as (
     select *
-    from RAW.HUBSPOT.CONTACT
+    from RAW.HUBSPOT2.CONTACT
   ),
   mstd as (
     select *

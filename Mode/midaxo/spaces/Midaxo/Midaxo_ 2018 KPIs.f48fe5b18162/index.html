@@ -1,0 +1,314 @@
+<style>
+  .modebar--hover {
+    visibility: hidden;
+  }
+</style>
+<div class="mode-header embed-hidden">
+  <h1>{{ title }}</h1>
+  <p>{{ description }}</p>
+</div>
+<div class="mode-grid container">
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_3d6a6d00-d508-4b2e-8e36-932d8545ac14" dataset="dataset" options="text_options">
+        <h2>Company KPIs</h2>
+        <p><br></p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_1df9a911-aea4-464c-cdd3-d4ff0cc754e6" dataset="dataset" options="text_options">
+        <p><em>Analyst summary of data here with primary result and action item(s).</em></p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row" data-row-height="small">
+    <div class="col-md-3">
+      <mode-text id="text_117c42e4-3090-4609-d7d6-f14663594441" dataset="dataset" options="text_options">
+        <h3>Customer NPS (WIP)</h3>
+        <p>Big Number</p>
+        <p>Metric: Customer NPS vs Target</p>
+      </mode-text>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_43c873c8fd6a" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-text id="text_110ba1a7-662e-423f-c9c3-eda0da6fb9cc" dataset="dataset" options="text_options">
+        <h3>LTV:CAC Ratio (WIP) </h3>
+        <p>Big Number</p>
+        <p>Metric: Current LTV:CAC vs Target</p>
+      </mode-text>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_c7fabbbfb5c4" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_c67ead93-8f6b-4f28-d175-1ad29f98f42e" dataset="dataset" options="text_options">
+        <h3>NPS (WIP)</h3>
+        <p>Bubble Scatter plot</p>
+        <p>Metrics: NPS score by cluster (x-axis = topic cluster, y-axis = cluster NPS, size = # of respondents)</p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_bc174319-b5fa-4890-c326-8824face7479" dataset="dataset" options="text_options">
+        <h3>eNPS (WIP)</h3>
+        <p>Bubble Scatter plot</p>
+        <p>Metrics: eNPS score by cluster (x-axis = topic cluster, y-axis = cluster NPS, size = # of respondents)</p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row" data-row-height="full">
+    <div class="col-md-12">
+      <mode-text id="text_565cce96-960b-4f08-fbe3-b1fff716bd40" dataset="dataset" options="text_options">
+        <h3>Unit Economics Table (WIP)</h3>
+        <p>Table</p>
+        <p>Metrics: LTV:CAC, LTV, CAC, Revenue Churn, Avg. ARR, Margin, Months to Recover over past 5 quarters &amp; current target</p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-python id="python_aef218ea4107" options="python_options"></mode-python>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_2b03538fb9f7" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_00dfee2d-a143-43d7-bcd9-d47ee41e64a7" dataset="dataset" options="text_options">
+        <h2>Sales KPIs</h2>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row" data-row-height="small">
+    <div class="col-md-3">
+      <mode-chart id="chart_c4393ab25344" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_5757215ef5c7" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_c0c956fb0815" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_7a66e404d6e9" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-chart id="chart_d74b8e0bddc2" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_822855d16161" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-chart id="chart_cb532ed852ef" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_fc7284495eac" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_c67eff10-b5ea-406e-e730-849f34705590" dataset="dataset" options="text_options">
+        <h2>Marketing KPIs</h2>
+        <p><br></p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row" data-row-height="small">
+    <div class="col-md-3">
+      <mode-chart id="chart_951abc8d3fe6" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_12792ef7aad6" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_c18e2f0bd851" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-chart id="chart_0db9b9707c34" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_1fa8df368419" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row" data-row-height="medium">
+    <div class="col-md-6">
+      <mode-chart id="chart_3009d81da632" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_139afba8d7a4" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_03704e3d-bfc2-4438-bc01-33fc1ebff8cf" dataset="dataset" options="text_options">
+        <h2>Customer Success KPIs</h2>
+        <p><br></p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row" data-row-height="small">
+    <div class="col-md-3">
+      <mode-chart id="chart_b529a45d74b8" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-text id="text_6a1dea9d-d019-4d6a-a8bf-23dac169e291" dataset="dataset" options="text_options">
+        <h3>Churn Forecast (WIP)</h3>
+        <p>Big Number</p>
+        <p>Metric: Churn forecast this quarter &amp; avg accuracy trailing 4Q</p>
+      </mode-text>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_90fe40bda7b8" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-chart id="chart_76e669225b2c" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_4ad2d1d69821" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_9948622f-36d2-433b-9fce-9a5d7a9d2ecc" dataset="dataset" options="text_options">
+        <h2>Development KPIs</h2>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row" data-row-height="small">
+    <div class="col-md-3">
+      <mode-chart id="chart_60685d2418f8" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_64e8e765697a" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_3f982cc592e4" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-chart id="chart_50f58fa78822" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_adeab5dc7347" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-chart id="chart_c25d69fddbde" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_b1a54438d7c5" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_c17a9e4e-48b4-4f22-aa47-61f2e847079a" dataset="dataset" options="text_options">
+        <h2>Product KPIs</h2>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row" data-row-height="small">
+    <div class="col-md-3">
+      <mode-text id="text_46779371-80de-4a09-e49d-775ba0d0f755" dataset="dataset" options="text_options">
+        <h3>Customer Usage (WIP)</h3>
+        <p>Big Number</p>
+        <p>Metric: % of seats used weekly</p>
+      </mode-text>
+    </div>
+    <div class="col-md-3">
+      <mode-text id="text_835cf85f-2c96-4745-a074-5fd7169a6536" dataset="dataset" options="text_options">
+        <h3>Milestones Delivered (WIP)</h3>
+        <p>Big Number</p>
+        <p>Metric: # of Milestones Delivered on Time vs Target</p>
+      </mode-text>
+    </div>
+    <div class="col-md-3">
+      <mode-text id="text_a13f22d1-cf08-453c-cda4-d5056163547f" dataset="dataset" options="text_options">
+        <h3>ARR Delivered (WIP)</h3>
+        <p>Big Number</p>
+        <p>Metric: ARR closed &amp; attributed to product features</p>
+        <p>Licensed YTD</p>
+      </mode-text>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <mode-chart id="chart_ea68e01cbd81" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-7"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_d049e936-89b7-4b46-c3fb-8f29f3035112" dataset="dataset" options="text_options">
+        <h3>Milestones Delivered (WIP)</h3>
+        <p>TBD</p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_6118cc6d-0f99-472a-fbcf-224f47ca0548" dataset="dataset" options="text_options">
+        <h2>Finance &amp; Ops KPIs</h2>
+        <p><br></p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <mode-chart id="chart_3d1316063426" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-3">
+      <mode-chart id="chart_c363e1ce99cd" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_3b8d0fe3b374" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-chart id="chart_9499b6f6ab3b" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_b46408e032b5" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_ba972e0b-8472-4d99-8406-c6e9a6aa4a61" dataset="dataset" options="text_options">
+        <p><strong>Headcount vs Target</strong></p>
+        <p>WIP</p>
+        <p>Include Attrition vs Target and Hiring vs Target for all roles</p>
+      </mode-text>
+    </div>
+  </div>
+</div>

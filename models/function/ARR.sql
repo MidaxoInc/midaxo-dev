@@ -20,7 +20,7 @@ a.deal_type,
 a.deal_attributed_to,
 a.engagement_partner,
 a.recognized_arr,
-b.one_time_revenue,
+a.one_time_revenue,
 a.seats_purchased,
 a.contract_term,
 a.finance_verified

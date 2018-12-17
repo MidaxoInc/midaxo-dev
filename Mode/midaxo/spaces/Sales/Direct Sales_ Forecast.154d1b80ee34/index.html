@@ -1,0 +1,132 @@
+<div class="mode-header embed-hidden">
+  <h1>{{ title }}</h1>
+  <p>{{ description }}</p>
+</div>
+<div class="mode-grid container">
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_4aa0133e-5f43-4c4d-8570-42aaff4c72a2" dataset="dataset" options="text_options">
+        <p><a href="https://docs.google.com/spreadsheets/d/1GCimmwcWuFj-mu8T1uZ9AqgNwxQ-UHAvlxtFNyP0brM/edit#gid=148742674" target="_blank">Link to Manager Forecast tracker</a></p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mode-chart id="chart_5de7fdb865f0" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+    <div class="col-md-6">
+      <mode-chart id="chart_d4a40713cb5f" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_a99083dd73a3" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_8b17b448618a" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_c6b1b22f-c723-4507-d3d7-83fb11c196b5" dataset="dataset" options="text_options">
+        <h1>ASP Forecast</h1>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_f597dea3-c231-4923-b040-b18172da746c" dataset="dataset" options="text_options">
+        <p>The ASP Forecast uses the Average ASP per quarter from the trailing 4 quarters (blue line). The green bars indicate actual ASP per quarter, or average open deal value for future quarters.</p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_d16673bd83c3" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_b2d096ba5dce" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_f65fb552-f35d-4801-94cd-b0dea6a83b24" dataset="dataset" options="text_options">
+        <h1>Existing Pipeline Forecast</h1>
+        <p><br></p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_c97508a4-11a9-465e-f329-40a8a1ffa732" dataset="dataset" options="text_options">
+        <p>The Existing Pipeline forecast is calculated as <strong>open deals </strong>x<strong> real win rate </strong>for each stage.</p>
+        <ul>
+          <li><strong>Open Deals: </strong>Deals with a close date in quarter, <u>excluding </u>deals created in quarter.</li>
+          <li><strong>Real Win Rate: </strong>This is calculated as deals <u>won in quarter</u> / open deals (by stage). In other words, it excludes deals that are closed lost <u>and</u> deals that were pushed into another quarter.</li>
+        </ul>
+        <p><br></p>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_1b60e6b573af" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_1979eeeaf5f3" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_2ac5577a0946" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_615022aaa819" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_3c12f699-5f2d-4906-9530-bfc38d881ef4" dataset="dataset" options="text_options">
+        <h1>Create &amp; Close Plug</h1>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-text id="text_13ce114f-9bc8-448c-d447-465a1c8e5bdf" dataset="dataset" options="text_options">
+        <p>Deals expected to be created &amp; closed in quarter is calculated as <strong>1 / (1- % won deals created in quarter) * existing pipeline forecast</strong>.</p>
+        <ul>
+          <li><strong>% of won deals created in quarter</strong> is calculated using a the average rate from the previous 2 quarters.</li>
+        </ul>
+      </mode-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_a0064a7f68cf" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_cdcc12a80984" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_5a0b8328b9d2" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mode-chart id="chart_83153f3580ac" dataset="dataset" options="chart_options"></mode-chart>
+    </div>
+  </div>
+</div>
